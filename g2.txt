@@ -1,4 +1,4 @@
-program expressionOp conditionOp simpleType simpleExpressionOpOp writeStmtOp type typeOp parameter listOfParameters cmpdstmt stmtlist stmt simplstmt assignstmt iostmt readStmt writeStmt declarationStmt expression simpleExpression sumExpression subtractExpression divideExpression multiplyExpression moduloExpression structstmt ifstmt whilestmt condition RELATION simpleExpressionOp stmtlistOp ifstmtOp
+program expressionOp conditionOp readOp typeOpOp simpleType simpleExpressionOpOp writeStmtOp type typeOp parameter listOfParameters cmpdstmt stmtlist stmt simplstmt assignstmt iostmt readStmt writeStmt declarationStmt expression simpleExpression sumExpression subtractExpression divideExpression multiplyExpression moduloExpression structstmt ifstmt whilestmt condition RELATION simpleExpressionOp stmtlistOp ifstmtOp
 function ( ) int bool char [ ] { } ; ' = epsilon + - * / % if while else < <= > >= != == , read write id const
 program
 program->function id ( listOfParameters ) cmpdstmt
@@ -7,7 +7,9 @@ simpleType->char
 simpleType->int
 type->simpleType typeOp
 typeOp->epsilon
-typeOp->[ const ]
+typeOp->[ typeOpOp
+typeOpOp->const ]
+typeOpOp->id ]
 parameter->type id
 listOfParameters->epsilon
 listOfParameters->parameter
@@ -23,7 +25,9 @@ simplstmt->declarationStmt
 assignstmt->id = expression ;
 iostmt->readStmt
 iostmt->writeStmt
-readStmt->read ( id ) ;
+readStmt->read ( id readOp
+readOp->) ;
+readOp->[ id ] ) ;
 writeStmt->write ( writeStmtOp
 writeStmtOp->const ) ;
 writeStmtOp->id ) ;

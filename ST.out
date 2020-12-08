@@ -1,5 +1,10 @@
 Symbol table represented as hash table with separate chaining. Symbol + position
-b {2, 1}
-c {5, 1}
+1 {1, 1}
+sum {14, 1}
+i {23, 1}
+n {38, 1}
+"The sum is " {44, 1}
 main {55, 1}
+100 {66, 1}
+0 {71, 1}
 a {72, 1}

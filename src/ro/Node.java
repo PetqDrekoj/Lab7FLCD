@@ -4,18 +4,18 @@ public class Node {
     private int crt;
     private String node;
     private int father;
-    private int sibling;
+    private int right_sibling;
 
     public Node(int crt, String node, int father, int sibling) {
         this.crt = crt;
         this.node = node;
         this.father = father;
-        this.sibling = sibling;
+        this.right_sibling = sibling;
     }
 
     @Override
     public String toString() {
-        return "Node[" + crt + ", " + node + ", " + father + ", " + sibling + "]";
+        return "Node[" + crt + ", " + node + ", " + father + ", " + right_sibling + "]";
     }
 
     public int getCrt() {
@@ -42,11 +42,11 @@ public class Node {
         this.father = father;
     }
 
-    public int getSibling() {
-        return sibling;
+    public int getRight_sibling() {
+        return right_sibling;
     }
 
-    public void setSibling(int sibling) {
-        this.sibling = sibling;
+    public void setRight_sibling(int right_sibling) {
+        this.right_sibling = right_sibling;
     }
 }

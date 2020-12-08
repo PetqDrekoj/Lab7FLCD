@@ -1,6 +1,8 @@
 package ro;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.*;
 
 public class Parser {
@@ -37,39 +39,46 @@ public class Parser {
         List<Integer> integerList = verifyString(Arrays.asList(s.split(" ")));
 //        System.out.println("\n");
 //        System.out.println(integerList);
-        constructTable(integerList);
-        this.tree.forEach(System.out::println);
+        if (integerList != null) {
+            constructTable(integerList);
+            System.out.println("Crt. " + "  Node  " + " Father " + "  Sibling ");
+            this.tree.forEach(z -> System.out.println(z.getCrt() + "   " + z.getNode() + "   " + z.getFather() + "   " + z.getRight_sibling()));
+            this.writeToFile(this.tree, "out.txt");
+        }
         //System.out.println("done");
-        this.writeToFile(this.tree, "out.txt");
+
     }
 
     private void writeToFile(List<Node> tree, String filename) throws IOException {
         File file = new File(filename);
         FileWriter writer = new FileWriter(file);
-        for(Node node : this.tree)
-            writer.write(node.toString()+"\n");
+        String output = "Crt. " + "  Node  " + " Father " + "  Sibling \n";
+        for (Node z : this.tree) {
+            output += z.getCrt() + "       " + z.getNode() + "      " + z.getFather() + "        " + z.getRight_sibling() + "\n";
+        }
+        writer.write(output);
         writer.close();
     }
 
     public void constructTable(List<Integer> input) { //1 4 8 ...
         int crt = 1;
         int index = 0;
-        Queue<Node> queue = new ArrayDeque<>();
+        Stack<Node> stack = new Stack<Node>();
         Node r = new Node(crt, this.grammar.getProductions().get(input.get(0) - 1).getFirst(), 0, 0);
-        queue.add(r);
+        stack.push(r);
         this.tree.add(r);
 
 
-        while (queue.size() > 0) {
-            Node current_node = queue.poll();
+        while (stack.size() > 0) {
+            Node current_node = stack.pop();
             List<String> childs = this.grammar.getProductions().get(input.get(index) - 1).getSecond();
-            for (int i = 0; i < childs.size(); i++) {
+            for (int i = childs.size() - 1; i >= 0; i--) {
                 crt++;
                 Node n = null;
-                if (i == 0) n = new Node(crt, childs.get(i), current_node.getCrt(), 0);
+                if (i == childs.size() - 1) n = new Node(crt, childs.get(i), current_node.getCrt(), 0);
                 else n = new Node(crt, childs.get(i), current_node.getCrt(), crt - 1);
                 this.tree.add(n);
-                if (!this.grammar.getSetOfTerminals().contains(n.getNode())) queue.add(n);
+                if (!this.grammar.getSetOfTerminals().contains(n.getNode())) stack.push(n);
             }
             index++;
         }
@@ -90,15 +99,16 @@ public class Parser {
         //initialize working stack
         workingStack.push("$");
         workingStack.push(this.grammar.getInitialState());
-
+        int il = 0;
         boolean go = true;
         while (go) {
+
             String headInputStack = inputStack.peek();
             while (workingStack.peek().equals("epsilon")) workingStack.pop();
             String headWorkingStack = workingStack.peek();
             Map.Entry<MyPair<String, String>, MyPair<List<String>, Integer>> entry = this.LL1Table.entrySet().stream().filter(k -> k.getKey().getFirst().equals(headWorkingStack) && k.getKey().getSecond().equals(headInputStack)).findFirst().orElse(null);
             //we consider that the input is correct
-            if(entry == null){
+            if (entry == null) {
                 System.out.println("head input stack is" + headInputStack + "\n head working stack is " + headWorkingStack);
             }
             MyPair<List<String>, Integer> value;
@@ -109,6 +119,7 @@ public class Parser {
                 System.out.println(E.toString());
             }
             if (value.getFirst().get(0).equals("pop")) {
+                il++;
                 workingStack.pop();
                 inputStack.pop();
             } else if (value.getFirst().get(0).equals("acc")) {
@@ -118,6 +129,14 @@ public class Parser {
             } else if (value.getFirst().get(0).equals("err")) {
                 go = false;
                 System.out.println("Sequence is not accepted");
+                System.out.println("Error at element " + (il + 1));
+                String beforeError = "";
+                String afterError = "";
+                if (il - 1 > 0) beforeError = w.get(il - 1);
+                if (il + 1 < w.size()) afterError = w.get(il + 1);
+                System.out.println("more exactly: " + beforeError + w.get(il) + afterError);
+                System.out.println(headInputStack);
+                System.out.println(inputStack);
                 return null;
             } else {
                 workingStack.pop();
@@ -296,7 +315,7 @@ public class Parser {
         try {
             File myObj = new File(fileName);
             Scanner myReader = new Scanner(myObj);
-            while(myReader.hasNextLine()){
+            while (myReader.hasNextLine()) {
                 this.parse(myReader.nextLine());
             }
             myReader.close();
@@ -306,15 +325,14 @@ public class Parser {
     }
 
 
-
     public void parsePIF(String pifFileName) {
         try {
             String secondColumnOfPIF = "";
             File myObj = new File(pifFileName);
             Scanner myReader = new Scanner(myObj);
-            while(myReader.hasNextLine()){
+            while (myReader.hasNextLine()) {
                 String x1 = myReader.nextLine().split("}, ")[1];
-                String x = x1.substring(0,x1.length()-1);
+                String x = x1.substring(0, x1.length() - 1);
                 secondColumnOfPIF += x + " ";
             }
             System.out.println(secondColumnOfPIF);

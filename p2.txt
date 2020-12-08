@@ -1,0 +1,15 @@
+function Main()
+{
+int n;
+bool prime;
+prime = true;
+read(n);
+int i;
+i=2;
+while(i<n){
+if(n%i==0) {prime=false;}
+i = i + 1;
+}
+if(prime == true) { write("is prime");}
+else {write("is not prime");}
+}

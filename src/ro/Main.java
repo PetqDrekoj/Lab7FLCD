@@ -5,6 +5,9 @@ import java.io.IOException;
 public class Main {
 
     public static void main(String[] args) throws IOException {
+//
+//        MyScanner myScanner = new MyScanner();
+//        myScanner.Scan("p3.txt");
 
         Grammar grammar = new Grammar("g1.txt");
         Parser parser = new Parser(grammar);
