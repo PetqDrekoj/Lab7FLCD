@@ -1,0 +1,14 @@
+function main()
+{
+int a;
+int b;
+int c;
+read(a);
+read(b);
+read(c);
+int maxm;
+maxm = a;
+if(b>a) {maxm=b;}
+if(c>a) {maxm=c;}
+write(maxm);
+}

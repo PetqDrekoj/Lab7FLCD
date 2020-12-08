@@ -1,0 +1,58 @@
+program expressionOp conditionOp simpleType simpleExpressionOpOp writeStmtOp type typeOp parameter listOfParameters cmpdstmt stmtlist stmt simplstmt assignstmt iostmt readStmt writeStmt declarationStmt expression simpleExpression sumExpression subtractExpression divideExpression multiplyExpression moduloExpression structstmt ifstmt whilestmt condition RELATION simpleExpressionOp stmtlistOp ifstmtOp
+function ( ) int bool char [ ] { } ; ' = epsilon + - * / % if while else < <= > >= != == , read write id const
+program
+program->function id ( listOfParameters ) cmpdstmt
+simpleType->bool
+simpleType->char
+simpleType->int
+type->simpleType typeOp
+typeOp->epsilon
+typeOp->[ const ]
+parameter->type id
+listOfParameters->epsilon
+listOfParameters->parameter
+cmpdstmt->{ stmtlist }
+stmtlist->epsilon
+stmtlist->stmt stmtlistOp
+stmtlistOp->stmtlist
+stmt->simplstmt
+stmt->structstmt
+simplstmt->assignstmt
+simplstmt->iostmt
+simplstmt->declarationStmt
+assignstmt->id = expression ;
+iostmt->readStmt
+iostmt->writeStmt
+readStmt->read ( id ) ;
+writeStmt->write ( writeStmtOp
+writeStmtOp->const ) ;
+writeStmtOp->id ) ;
+declarationStmt->parameter ;
+expression->simpleExpression expressionOp
+simpleExpression->const
+simpleExpression->id simpleExpressionOp
+simpleExpressionOp->epsilon
+simpleExpressionOp->[ simpleExpressionOpOp
+simpleExpressionOpOp->const ]
+simpleExpressionOpOp->id ]
+expressionOp->+ simpleExpression
+expressionOp->- simpleExpression
+expressionOp->/ simpleExpression
+expressionOp->* simpleExpression
+expressionOp->% simpleExpression
+expressionOp->epsilon
+structstmt->ifstmt
+structstmt->whilestmt
+ifstmt->if ( condition ) cmpdstmt ifstmtOp
+ifstmtOp->epsilon
+ifstmtOp->else cmpdstmt
+whilestmt->while ( condition ) cmpdstmt
+condition->expression conditionOp
+conditionOp->RELATION expression
+conditionOp->epsilon
+RELATION-><
+RELATION-><=
+RELATION->==
+RELATION->!=
+RELATION->>=
+RELATION->>

@@ -1,0 +1,5 @@
+Symbol table represented as hash table with separate chaining. Symbol + position
+b {2, 1}
+c {5, 1}
+main {55, 1}
+a {72, 1}
