@@ -42,19 +42,18 @@ public class Parser {
         if (integerList != null) {
             constructTable(integerList);
             System.out.println("Crt. " + "  Node  " + " Father " + "  Sibling ");
-            this.tree.forEach(z -> System.out.println(z.getCrt() + "   " + z.getNode() + "   " + z.getFather() + "   " + z.getRight_sibling()));
-            this.writeToFile(this.tree, "out1.txt");
+            this.tree.forEach(z -> System.out.println(z.toString()));
+            this.writeToFile(this.tree, "out2.txt");
         }
-        //System.out.println("done");
-
     }
 
     private void writeToFile(List<Node> tree, String filename) throws IOException {
         File file = new File(filename);
         FileWriter writer = new FileWriter(file);
-        String output = "Crt. " + "  Node  " + " Father " + "  Sibling \n";
+        String output = String.format("%-20s %-20s %-20s %-20s%n", "Crt.", "Node", "Father", "Sibling");
+        //String output = "Crt.   " + "    Node    " + "   Father   " + "    Sibling \n";
         for (Node z : this.tree) {
-            output += z.getCrt() + "       " + z.getNode() + "      " + z.getFather() + "        " + z.getRight_sibling() + "\n";
+            output += z.toString() + "\n";
         }
         writer.write(output);
         writer.close();

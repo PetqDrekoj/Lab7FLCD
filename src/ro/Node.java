@@ -15,7 +15,7 @@ public class Node {
 
     @Override
     public String toString() {
-        return "Node[" + crt + ", " + node + ", " + father + ", " + right_sibling + "]";
+        return String.format("%-20s %-20s %-20s %-20s", crt, node, father, right_sibling);
     }
 
     public int getCrt() {
