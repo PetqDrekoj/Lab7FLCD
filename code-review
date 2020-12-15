@@ -1,0 +1,20 @@
+	Code Review :
+
+Main.java
+Simple , nothing to comment
+
+Grammar.java
+Well structured , easy to read code
+
+MyScanner.java
+Well documented , scan function a bit too long , maybe could have been broken down into multiple functions
+Good usages of regexes
+line 264 romanian in printing although english has been used throughout the project output
+
+SymbolTableNode.java
+A few functions never used
+
+ThreePair.java
+Inconsistent naming conflicting with MyPair.java
+Good usage of additional functions like MyPair and ThreePair
+
