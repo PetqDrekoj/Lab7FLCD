@@ -43,7 +43,7 @@ public class Parser {
             constructTable(integerList);
             System.out.println("Crt. " + "  Node  " + " Father " + "  Sibling ");
             this.tree.forEach(z -> System.out.println(z.getCrt() + "   " + z.getNode() + "   " + z.getFather() + "   " + z.getRight_sibling()));
-            this.writeToFile(this.tree, "out.txt");
+            this.writeToFile(this.tree, "out1.txt");
         }
         //System.out.println("done");
 
